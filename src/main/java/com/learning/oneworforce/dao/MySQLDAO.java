@@ -192,14 +192,14 @@ public int insertleave(Leave leave)
 	
 }
 
-public int updateleave(String leaveid)
+public int updateleave(Leave leave)
 {
 	try{
 		
-	 String UPDATE_QUERY  = "update leaves set approval_status=? where leave_id=?";
+	 String UPDATE_QUERY  = "update leaves set approval_status=?,approver_id=?,approvercomments=? where leave_id=?";
 	 
 	 //return jdbcTemplate.update(INSERT_QUERY, leave.getLeave_type(),leave.getEmp_no(),leave.getCreated_date(),leave.getFrom_date(),leave.getTo_date(),leave.getReason(),leave.getApproval_status(),leave.getApprover_id(),leave.getApproval_date());
-	 return jdbcTemplate.update(UPDATE_QUERY , "Approved",Integer.parseInt(leaveid));
+	 return jdbcTemplate.update(UPDATE_QUERY , leave.getApproval_status(),leave.getApprover_id(),leave.getApprovercomments(),Integer.parseInt(leave.getLeave_id()));
 	}
 	catch(Exception e)
 	{
@@ -247,7 +247,7 @@ public  List <Leave>getleaves(String empno, String status)
 		    			  new Object[] { empno, status }, 
 		                (rs, rowNum) ->
 		                        new Leave(
-		                                rs.getInt("leave_id"),
+		                                rs.getString("leave_id"),
 		                                rs.getInt("emp_no"),
 		                                rs.getString("created_date"),
 		                                rs.getString("leave_type"),

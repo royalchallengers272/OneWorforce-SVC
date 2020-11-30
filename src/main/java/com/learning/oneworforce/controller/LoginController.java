@@ -88,11 +88,11 @@ public ResponseEntity<List<Employee>> getEmployeeDetails() {
 
 
 @CrossOrigin(origins = "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com")
-@GetMapping("/api/updateleave")
-public ResponseEntity<String> updateLeaveDetails(@RequestParam String leaveid) {
+@PostMapping("/api/updateleave")
+public ResponseEntity<String> updateLeaveDetails(@RequestBody Leave leaveobj) {
   try {
-	  System.out.println("Update Leave"+leaveid);
-	int result=mysqldao.updateleave(leaveid);
+	  System.out.println("Update Leave"+leaveobj.getLeave_id());
+	int result=mysqldao.updateleave(leaveobj);
 
 	 if(result==1)
 	 {

@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Leave {
 	
-private int leave_id;
+private String leave_id;
 private String leave_type;
 private int emp_no;
 private String from_date;
@@ -13,6 +13,13 @@ private String approval_status;
 private String reason;
 private int approver_id;
 private String created_date;
+private String approvercomments;
+public String getApprovercomments() {
+	return approvercomments;
+}
+public void setApprovercomments(String approvercomments) {
+	this.approvercomments = approvercomments;
+}
 public String getCreated_date() {
 	return created_date;
 }
@@ -27,10 +34,10 @@ public void setApproval_date(String approval_date) {
 }
 
 private String approval_date;
-public int getLeave_id() {
+public String getLeave_id() {
 	return leave_id;
 }
-public void setLeave_id(int leave_id) {
+public void setLeave_id(String leave_id) {
 	this.leave_id = leave_id;
 }
 public String getLeave_type() {
@@ -76,7 +83,7 @@ public void setApprover_id(int approver_id) {
 	this.approver_id = approver_id;
 }
 
-public Leave(int leave_id,int emp_no,String created_date,String leave_type,String from_date,String to_date,String  approval_status,String reason,String approval_date,int approver_id)
+public Leave(String leave_id,int emp_no,String created_date,String leave_type,String from_date,String to_date,String  approval_status,String reason,String approval_date,int approver_id)
 {
 	this.leave_id=leave_id;
 	this.emp_no=emp_no;
