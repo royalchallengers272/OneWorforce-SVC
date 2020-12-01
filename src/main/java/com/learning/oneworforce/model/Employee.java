@@ -14,6 +14,7 @@ public class Employee {
 	public void setEmp_no(int emp_no) {
 		this.emp_no = emp_no;
 	}
+	
 	public String getBirth_date() {
 		return birth_date;
 	}
