@@ -2,19 +2,68 @@ package com.learning.oneworforce.model;
 
 public class Employee {
 
-	private int emp_no; 
+	private String emp_no; 
 	private String birth_date;
 	private String first_name;
 	private String last_name;
 	private String gender;
 	private String hire_date;
-	public int getEmp_no() {
+	private String email;
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getAddress1() {
+		return address1;
+	}
+	public void setAddress1(String address1) {
+		this.address1 = address1;
+	}
+	public String getAddress2() {
+		return address2;
+	}
+	public void setAddress2(String address2) {
+		this.address2 = address2;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
+	public String getZip() {
+		return zip;
+	}
+	public void setZip(String zip) {
+		this.zip = zip;
+	}
+
+	private String password;
+	private String address1;
+	private String address2;
+	private String city;
+	private String state;
+	private String zip;
+	public String getEmp_no() {
 		return emp_no;
 	}
-	public void setEmp_no(int emp_no) {
+	public void setEmp_no(String emp_no) {
 		this.emp_no = emp_no;
 	}
-	
 	public String getBirth_date() {
 		return birth_date;
 	}
@@ -46,7 +95,7 @@ public class Employee {
 		this.hire_date = hire_date;
 	}
 	
-	public Employee(int emp_no,String birth_date,String first_name,String last_name,String gender,String hire_date)
+	public Employee(String emp_no,String birth_date,String first_name,String last_name,String gender,String hire_date,String email,String password,String address1,String address2,String city,String state,String zip )
 	{
 		
 		this.emp_no=emp_no;
@@ -55,6 +104,17 @@ public class Employee {
 		this.last_name=last_name;
 		this.gender=gender;
 		this.hire_date=hire_date;
+		this.email=email;
+		this.password=password;
+		this.address1=address1;
+		this.address2=address2;
+		this.city=city;
+		this.state=state;
+		this.zip=zip;
+		
+	}
+	public Employee()
+	{
 		
 	}
 }

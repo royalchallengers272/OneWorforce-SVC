@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.learning.oneworforce.dao.MySQLDAO;
 import com.learning.oneworforce.model.Employee;
+import com.learning.oneworforce.model.Expense;
 import com.learning.oneworforce.model.Leave;
+import com.learning.oneworforce.model.Performance;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -88,6 +90,27 @@ public ResponseEntity<List<Employee>> getEmployeeDetails() {
 
 
 @CrossOrigin(origins = "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com")
+@PostMapping("/api/updateDirectory")
+public ResponseEntity<String> updateEmployee(@RequestBody Employee employee) {
+  try {
+	  System.out.println("Update Employee"+employee.getEmp_no());
+	int result=mysqldao.updateEmployee(employee);
+
+	 if(result==1)
+	 {
+	 return new ResponseEntity<>("Success", HttpStatus.OK);
+	 }
+	 else
+	 {
+		 return new ResponseEntity<>("Fail", HttpStatus.OK);
+	 }
+		}
+   catch (Exception e) {
+	   return new ResponseEntity<>("Error", HttpStatus.OK);
+  }
+}
+
+@CrossOrigin(origins = "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com")
 @PostMapping("/api/updateleave")
 public ResponseEntity<String> updateLeaveDetails(@RequestBody Leave leaveobj) {
   try {
@@ -132,7 +155,7 @@ public ResponseEntity<String> insertLeaveDetails(@RequestBody Leave leaveobj) {
 
 
 @CrossOrigin(origins = "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com")
-@GetMapping("/api/getleaves")
+@GetMapping("/api/getPendingleaves")
 public ResponseEntity<List<Leave>> getLeaveDetails(@RequestParam String emp_no) {
   try {
 	  System.out.println("Fetch leaves for"+emp_no);
@@ -146,5 +169,145 @@ public ResponseEntity<List<Leave>> getLeaveDetails(@RequestParam String emp_no) 
 	   return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
   }
 }
+
+@CrossOrigin(origins = "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com")
+@GetMapping("/api/getleavedetails")
+public ResponseEntity<List<Leave>> getAllLeaveDetails(@RequestParam String emp_no) {
+  try {
+	  System.out.println("Fetch leaves for"+emp_no);
+	  List<Leave> leave=mysqldao.getAllLeaves(emp_no);
+	
+	 return new ResponseEntity<>(leave, HttpStatus.OK);
+	 
+
+		}
+   catch (Exception e) {
+	   return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+  }
+}
+
+@CrossOrigin(origins = "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com")
+@PostMapping("/api/submitexpense")
+public ResponseEntity<String> insertExpenseDetails(@RequestBody Expense expense) {
+  try {
+	  System.out.println("Submitting leave for"+expense.getEmp_no());
+	int result=mysqldao.insertExpense(expense);
+	 System.out.println("result"+result);
+	 if(result==1)
+	 {
+	 return new ResponseEntity<>("Success", HttpStatus.OK);
+	 }
+	 else
+	 {
+		 return new ResponseEntity<>("Fail", HttpStatus.OK);
+	 }
+		}
+   catch (Exception e) {
+	   return new ResponseEntity<>("Error", HttpStatus.OK);
+  }
+}
+
+
+@CrossOrigin(origins = "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com")
+@PostMapping("/api/updateexpense")
+public ResponseEntity<String> updateExpenseDetails(@RequestBody Expense expenseobj) {
+  try {
+	  System.out.println("Update expense"+expenseobj.getApprover_id());
+	int result=mysqldao.updateexpense(expenseobj);
+
+	 if(result==1)
+	 {
+	 return new ResponseEntity<>("Success", HttpStatus.OK);
+	 }
+	 else
+	 {
+		 return new ResponseEntity<>("Fail", HttpStatus.OK);
+	 }
+		}
+   catch (Exception e) {
+	   return new ResponseEntity<>("Error", HttpStatus.OK);
+  }
+}
+
+
+
+@CrossOrigin(origins = "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com")
+@GetMapping("/api/getPendingexpense")
+public ResponseEntity<List<Expense>> getpendingexpense(@RequestParam String emp_no) {
+  try {
+	  System.out.println("Fetch Expenses for"+emp_no);
+	  List<Expense> expense=mysqldao.getpendingExpense(emp_no,"Pending");
+	
+	 return new ResponseEntity<>(expense, HttpStatus.OK);
+	 
+
+		}
+   catch (Exception e) {
+	   return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+  }
+}
+
+
+
+@CrossOrigin(origins = "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com")
+@PostMapping("/api/submitperformance")
+public ResponseEntity<String> insertPerformanceDetails(@RequestBody Performance performance) {
+  try {
+	  System.out.println("Submitting performance for"+performance.getEmp_no());
+	int result=mysqldao.insertPerformance(performance);
+	 System.out.println("result"+result);
+	 if(result==1)
+	 {
+	 return new ResponseEntity<>("Success", HttpStatus.OK);
+	 }
+	 else
+	 {
+		 return new ResponseEntity<>("Fail", HttpStatus.OK);
+	 }
+		}
+   catch (Exception e) {
+	   return new ResponseEntity<>("Error", HttpStatus.OK);
+  }
+}
+
+
+@CrossOrigin(origins = "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com")
+@GetMapping("/api/getPendingperformance")
+public ResponseEntity<List<Performance>> getpendingPerformance(@RequestParam String emp_no) {
+  try {
+	  System.out.println("Fetch performance for"+emp_no);
+	  List<Performance> performance=mysqldao.getpendingPerformance(emp_no,"Pending");
+	
+	 return new ResponseEntity<>(performance, HttpStatus.OK);
+	 
+
+		}
+   catch (Exception e) {
+	   return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+  }
+}
+
+
+@CrossOrigin(origins = "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com")
+@PostMapping("/api/updateperformance")
+public ResponseEntity<String> updatePerformaceDetails(@RequestBody Performance performance) {
+  try {
+	  System.out.println("Update expense"+performance.getApprover_id());
+	int result=mysqldao.updateperformance(performance);
+
+	 if(result==1)
+	 {
+	 return new ResponseEntity<>("Success", HttpStatus.OK);
+	 }
+	 else
+	 {
+		 return new ResponseEntity<>("Fail", HttpStatus.OK);
+	 }
+		}
+   catch (Exception e) {
+	   return new ResponseEntity<>("Error", HttpStatus.OK);
+  }
+}
+
     
 }
