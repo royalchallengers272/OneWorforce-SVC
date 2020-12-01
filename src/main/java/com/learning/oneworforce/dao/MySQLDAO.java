@@ -220,7 +220,7 @@ public  List <Leave>getleaves(String empno, String status)
 	Connection connection=null;
 	List<Leave> leavedetails = new ArrayList<>();
 	//String selectquery="select top 1 SHIP_TO_COUNTRY from  LEGAL_DB.LEGAL_DFI_BR.BV_CMPL_PLT_SERIAL_NUMBER  where LOWER_BP_SERIAL_NUMBER=? and CARTON_ID=? and LOWER_ITEM_SERIAL_NUMBER=?";
-	String selectquery="select * from leaves where emp_no=? and approval_status=?";
+	String selectquery="select lea.* from leaves lea,dept_emp demp where lea.emp_no=demp.emp_no and demp.dept_no=? and lea.approval_status=? ";
 	
 	System.out.println(selectquery);
 
@@ -242,9 +242,21 @@ public  List <Leave>getleaves(String empno, String status)
 		long endTime = System.nanoTime();
 		  System.out.println("Time taken to establish MySQL connection "+(endTime-startTime)/1000000);
 		
+		  String countsql = "select count(*) from  dept_manager  where emp_no=? and to_date=?";
+		  String to_date="9999-01-01";
+		  String dep_no="";
+		  String depnamesql = "select dept_no from  dept_manager  where emp_no=? and to_date=?";
+	      int count=jdbcTemplate.queryForObject(countsql,new Object[] {empno,to_date},Integer.class);
+	      
+	      if(count>0)
+	      {
+	    	  dep_no=jdbcTemplate.queryForObject(depnamesql,new Object[] {empno,to_date},String.class);
+	    	  
+	      
+		  
 		  leavedetails=jdbcTemplate.query(
 		    			selectquery,
-		    			  new Object[] { empno, status }, 
+		    			  new Object[] { dep_no, status }, 
 		                (rs, rowNum) ->
 		                        new Leave(
 		                                rs.getString("leave_id"),
@@ -258,7 +270,7 @@ public  List <Leave>getleaves(String empno, String status)
 		                                rs.getString("approval_date"),
 		                                rs.getInt("approver_id")
 		                        ));
-		    	
+	      }
 	}
 	   catch (EmptyResultDataAccessException e) {
 		   LOGGER.error(e.getMessage());
