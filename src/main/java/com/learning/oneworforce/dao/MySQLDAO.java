@@ -20,6 +20,7 @@ import com.learning.oneworforce.model.Employee;
 import com.learning.oneworforce.model.Expense;
 import com.learning.oneworforce.model.Leave;
 import com.learning.oneworforce.model.Performance;
+import com.learning.oneworforce.model.Timesheet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -115,13 +116,39 @@ public class MySQLDAO {
 public List<Employee> getEmployeeData(String emp_no){
 		
 
-
+	  System.out.println("Hello here");
 		DataSource dataSource;
 		Connection connection=null;
 		List<Employee> employeedetails = new ArrayList<>();
 		//String selectquery="select top 1 SHIP_TO_COUNTRY from  LEGAL_DB.LEGAL_DFI_BR.BV_CMPL_PLT_SERIAL_NUMBER  where LOWER_BP_SERIAL_NUMBER=? and CARTON_ID=? and LOWER_ITEM_SERIAL_NUMBER=?";
-		String selectquery="select emp.*,dept.dept_name from employees emp,dept_emp demp,departments dept where emp.emp_no=demp.emp_no and demp.dept_no=dept.dept_no and emp.emp_no="+emp_no;
+		 String selectquery="select emp.*,dept.dept_name from employees emp,dept_emp demp,departments dept where emp.emp_no=demp.emp_no and demp.dept_no=dept.dept_no and emp.emp_no="+emp_no;
+		
+		  String to_date="9999-01-01";
+		  String countmanagerquery = "select count(*) from  dept_manager  where emp_no=? and to_date=?";
+		  String dep_noquery = "select dept_no from  dept_emp  where emp_no=?";
+		  String managernamequery = "select CONCAT(emp.first_name, ' ',emp.last_name) as manager from  dept_manager manager, employees emp where emp.emp_no=manager.emp_no and manager.dept_no=? and manager.to_date=?";
+		  
+		  int count=jdbcTemplate.queryForObject(countmanagerquery,new Object[] {emp_no,to_date},Integer.class);
+		  System.out.println("count"+count);
+		  String  dept_no=null;
+		  String  managername=null;
+		  String  managerflag=null;
+		  if(count>0)
+		  {
+			  managerflag="Y";
+			  managername="";
+		  }
+		  else
+		  {
+			    dept_no=jdbcTemplate.queryForObject(dep_noquery,new Object[] {emp_no},String.class); 
+			    System.out.println("dept_no"+dept_no);
+			    managername=jdbcTemplate.queryForObject(managernamequery,new Object[] {dept_no,to_date},String.class); 
+			    managerflag="N";
+    		     System.out.println("managername"+managername);
+		  }
+		  
 	
+		
 			try
 		{
 				  long startTime = System.nanoTime();
@@ -158,7 +185,9 @@ public List<Employee> getEmployeeData(String emp_no){
 			                                rs.getString("state"),
 			                                rs.getString("zip")
 			                        ));
-			    	
+	                 
+	                 employeedetails.get(0).setManagername(managername);
+	                 employeedetails.get(0).setManagerflag(managerflag);
 		}
 		   catch (EmptyResultDataAccessException e) {
 			   LOGGER.error(e.getMessage());
@@ -187,6 +216,94 @@ public List<Employee> getEmployeeData(String emp_no){
 	
 				}
 
+public List<Employee> getmanagerEmployeeData(String emp_no){
+	
+
+	System.out.println("Here");
+
+	DataSource dataSource;
+	Connection connection=null;
+	List<Employee> employeedetails = new ArrayList<>();
+	//String selectquery="select top 1 SHIP_TO_COUNTRY from  LEGAL_DB.LEGAL_DFI_BR.BV_CMPL_PLT_SERIAL_NUMBER  where LOWER_BP_SERIAL_NUMBER=? and CARTON_ID=? and LOWER_ITEM_SERIAL_NUMBER=?";
+	 
+	  String countmanagerquery = "select count(*) from  dept_manager  where emp_no=? and to_date=?";
+	  String dep_noquery = "select dept_no from  dept_manager  where emp_no=? and to_date=?";
+	  String to_date="9999-01-01";
+		try
+	{
+			  long startTime = System.nanoTime();
+		dataSource = jdbcTemplate.getDataSource();
+		connection = null;
+		if(null == dataSource){
+			
+		}
+
+		connection = dataSource.getConnection();
+		
+		if(null == connection){
+		
+		}
+		
+		 int count=jdbcTemplate.queryForObject(countmanagerquery,new Object[] {emp_no,to_date},Integer.class);
+		 
+		 System.out.println("count"+count);
+		 if(count>0)
+		 {
+			 
+			 String dept_no =jdbcTemplate.queryForObject(dep_noquery,new Object[] {emp_no,to_date},String.class);
+			 System.out.println("dept_no"+dept_no);
+			 String selectquery="select emp.* from employees emp, dept_emp demp where emp.emp_no=demp.emp_no and demp.dept_no=?";
+
+                 employeedetails=jdbcTemplate.query(
+                			selectquery,
+  		    			  new Object[] { dept_no }, 
+  		                (rs, rowNum) ->
+		                        new Employee(
+		                                rs.getString("emp_no"),
+		                                rs.getString("birth_date"),
+		                                rs.getString("first_name"),
+		                                rs.getString("last_name"),
+		                                rs.getString("gender"),
+		                                rs.getString("hire_date"),
+		                                rs.getString("email"),
+		                                rs.getString("password"),
+		                                rs.getString("address1"),
+		                                rs.getString("address2"),
+		                                rs.getString("city"),
+		                                rs.getString("state"),
+		                                rs.getString("zip")
+		                        ));
+		    	
+		 }
+		 
+	}
+	   catch (EmptyResultDataAccessException e) {
+		   LOGGER.error(e.getMessage());
+		   LOGGER.error("An error occurred while getting  employees info.", e);
+   } 
+	   catch (SQLException e) {
+		   LOGGER.error(e.getMessage());
+			LOGGER.error("An error occurred while getting employees info.", e);
+			
+		
+	}
+		finally
+		{
+			try {
+				connection.close();
+			   } 
+			catch (SQLException e) {
+				
+				LOGGER.error(e.getMessage());
+				LOGGER.error("An error occurred while closing connection.", e);
+				
+				//e.printStackTrace();
+			}
+		}
+		
+		 return employeedetails;
+
+			}
 
 public int updateEmployee(Employee employee)
 {
@@ -650,6 +767,132 @@ public int updateperformance(Performance performance)
 		return 0;
 		
 }
+	
+}
+
+public int insertTimesheet(Timesheet timesheet)
+{
+	try{
+		
+	    Date timesheetdate=new SimpleDateFormat("dd/MM/yyyy").parse(timesheet.getTimesheet_date());  
+	    
+	 String INSERT_QUERY = "insert into timesheet (emp_no,timesheet_date,timesheet_hours,tasks,created_date,approver_id,approval_date,approver_comments,status) values (?, ?,?, ?,?, ?,?, ?,?)";
+
+	 //return jdbcTemplate.update(INSERT_QUERY, leave.getLeave_type(),leave.getEmp_no(),leave.getCreated_date(),leave.getFrom_date(),leave.getTo_date(),leave.getReason(),leave.getApproval_status(),leave.getApprover_id(),leave.getApproval_date());
+	 return jdbcTemplate.update(INSERT_QUERY, Integer.parseInt(timesheet.getEmp_no()),timesheetdate,timesheet.getTimesheet_hours(),timesheet.getTasks(),new Date(),null,null,null,"Pending");
+	}
+	catch(Exception e)
+	{
+		System.out.println("Exception while submitting timesheet"+e);
+		return 0;
+		
+}
+	
+}
+
+public int updateTimesheet(Timesheet timesheet)
+{
+	try{
+		
+	 String UPDATE_QUERY  = "update timesheet set status=?,approver_id=?,approval_date=?,approver_comments=? where timesheet_id=?";
+	 
+	 //return jdbcTemplate.update(INSERT_QUERY, leave.getLeave_type(),leave.getEmp_no(),leave.getCreated_date(),leave.getFrom_date(),leave.getTo_date(),leave.getReason(),leave.getApproval_status(),leave.getApprover_id(),leave.getApproval_date());
+	 return jdbcTemplate.update(UPDATE_QUERY , timesheet.getStatus(),timesheet.getApprover_id(),new Date(),timesheet.getApprover_comments(),Integer.parseInt(timesheet.getTimesheet_id()));
+	}
+	catch(Exception e)
+	{
+		System.out.println("Exception while Updating performance"+e);
+		return 0;
+		
+}
+	
+}
+
+public  List <Timesheet>getpendingTimesheet(String empno, String status)
+{
+	DataSource dataSource;
+	Connection connection=null;
+	List<Timesheet> timesheetdetails = new ArrayList<>();
+	//String selectquery="select top 1 SHIP_TO_COUNTRY from  LEGAL_DB.LEGAL_DFI_BR.BV_CMPL_PLT_SERIAL_NUMBER  where LOWER_BP_SERIAL_NUMBER=? and CARTON_ID=? and LOWER_ITEM_SERIAL_NUMBER=?";
+	String selectquery="select time.* from timesheet time,dept_emp demp where time.emp_no=demp.emp_no and demp.dept_no=? and time.status=?";
+	
+	//String selectquery="select * from performance";
+	System.out.println(selectquery);
+
+	System.out.println("empno"+empno);
+		try
+	{
+			  long startTime = System.nanoTime();
+		dataSource = jdbcTemplate.getDataSource();
+		connection = null;
+		if(null == dataSource){
+			
+		}
+
+		connection = dataSource.getConnection();
+		
+		if(null == connection){
+		
+		}
+		
+		long endTime = System.nanoTime();
+		  System.out.println("Time taken to establish MySQL connection "+(endTime-startTime)/1000000);
+		
+		  String countsql = "select count(*) from  dept_manager  where emp_no=? and to_date=?";
+		  String to_date="9999-01-01";
+		  String dep_no="";
+		  String depnamesql = "select dept_no from  dept_manager  where emp_no=? and to_date=?";
+	      int count=jdbcTemplate.queryForObject(countsql,new Object[] {empno,to_date},Integer.class);
+	      System.out.println("count"+count);
+	      if(count>0)
+	      {
+	    	  dep_no=jdbcTemplate.queryForObject(depnamesql,new Object[] {empno,to_date},String.class);
+	    	  
+	    	  System.out.println("status"+status);
+  
+	    	  timesheetdetails=jdbcTemplate.query(
+		    			selectquery,
+		    			  new Object[] { dep_no, status }, 
+		                (rs, rowNum) ->	    			
+		                        new Timesheet(
+		                                rs.getString("timesheet_id"),
+		                                rs.getString("emp_no"),
+		                                rs.getString("timesheet_date"),
+		                                rs.getString("timesheet_hours"),
+		                                rs.getString("tasks"),
+		                                rs.getString("created_date"),
+		                                rs.getString("approver_id"),
+		                                rs.getString("approval_date"),
+		                                rs.getString("approver_comments"),
+		                                rs.getString("status")
+		                        ));
+	    	  System.out.println("perdetails"+timesheetdetails.size());
+	      }
+	}
+	   catch (EmptyResultDataAccessException e) {
+		   LOGGER.error(e.getMessage());
+		   LOGGER.error("An error occurred while getleaves.", e);
+   } 
+	   catch (SQLException e) {
+		   LOGGER.error(e.getMessage());
+			LOGGER.error("An error occurred while getleaves", e);
+			
+		
+	}
+		finally
+		{
+			try {
+				connection.close();
+			   } 
+			catch (SQLException e) {
+				
+				LOGGER.error(e.getMessage());
+				LOGGER.error("An error occurred while closing connection.", e);
+				
+			}
+		}
+		
+		 return timesheetdetails;
 	
 }
 }

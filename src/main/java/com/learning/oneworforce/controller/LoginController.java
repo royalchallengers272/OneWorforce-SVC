@@ -21,6 +21,7 @@ import com.learning.oneworforce.model.Employee;
 import com.learning.oneworforce.model.Expense;
 import com.learning.oneworforce.model.Leave;
 import com.learning.oneworforce.model.Performance;
+import com.learning.oneworforce.model.Timesheet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -76,6 +77,25 @@ public ResponseEntity<List<Employee>> getEmployeeDetails() {
   try {
 	 
 	List<Employee> employee = mysqldao.getAllEmployeeData();
+
+    if (employee.isEmpty()) {
+      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+	  System.out.println("Total Employee Count"+employee.size());
+    return new ResponseEntity<>(employee, HttpStatus.OK);
+		}
+   catch (Exception e) {
+    return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+  }
+}
+
+
+@CrossOrigin(origins = "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com")
+@GetMapping("/api/getManagerEmployeeDetails")
+public ResponseEntity<List<Employee>> getmanagerEmployeeDetails(@RequestParam String empid) {
+  try {
+	 
+	List<Employee> employee = mysqldao.getmanagerEmployeeData(empid);
 
     if (employee.isEmpty()) {
       return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -306,6 +326,67 @@ public ResponseEntity<String> updatePerformaceDetails(@RequestBody Performance p
 		}
    catch (Exception e) {
 	   return new ResponseEntity<>("Error", HttpStatus.OK);
+  }
+}
+
+@CrossOrigin(origins = "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com")
+@PostMapping("/api/submitTimesheet")
+public ResponseEntity<String> insertPerformanceDetails(@RequestBody Timesheet timesheet) {
+  try {
+	  System.out.println("Submitting timesheet for"+timesheet.getEmp_no());
+	int result=mysqldao.insertTimesheet(timesheet);
+	 System.out.println("result"+result);
+	 if(result==1)
+	 {
+	 return new ResponseEntity<>("Success", HttpStatus.OK);
+	 }
+	 else
+	 {
+		 return new ResponseEntity<>("Fail", HttpStatus.OK);
+	 }
+		}
+   catch (Exception e) {
+	   return new ResponseEntity<>("Error", HttpStatus.OK);
+  }
+}
+
+
+@CrossOrigin(origins = "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com")
+@PostMapping("/api/updatetimesheet")
+public ResponseEntity<String> updateTimesheet(@RequestBody Timesheet timesheet) {
+  try {
+	  System.out.println("Update expense"+timesheet.getApprover_id());
+	int result=mysqldao.updateTimesheet(timesheet);
+
+	 if(result==1)
+	 {
+	 return new ResponseEntity<>("Success", HttpStatus.OK);
+	 }
+	 else
+	 {
+		 return new ResponseEntity<>("Fail", HttpStatus.OK);
+	 }
+		}
+   catch (Exception e) {
+	   return new ResponseEntity<>("Error", HttpStatus.OK);
+  }
+}
+
+
+
+@CrossOrigin(origins = "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com")
+@GetMapping("/api/getPendingtimesheet")
+public ResponseEntity<List<Timesheet>> getpendingTimesheet(@RequestParam String emp_no) {
+  try {
+	  System.out.println("Fetch performance for"+emp_no);
+	  List<Timesheet> timesheet=mysqldao.getpendingTimesheet(emp_no, "Pending");
+	
+	 return new ResponseEntity<>(timesheet, HttpStatus.OK);
+	 
+
+		}
+   catch (Exception e) {
+	   return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
   }
 }
 
