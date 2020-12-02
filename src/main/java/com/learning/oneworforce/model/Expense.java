@@ -72,9 +72,10 @@ public class Expense {
 		
 	}
 	
-	public Expense(String expense_id,String expense_type,String description,String amount,String status,String approver_id,String created_date,String approve_date)
+	public Expense(String expense_id,String emp_no,String expense_type,String description,String amount,String status,String approver_id,String created_date,String approve_date)
 	{
 		this.expense_id=expense_id;
+		this.emp_no=emp_no;
 		this.expense_type=expense_type;
 		this.description=description;
 		this.amount=amount;

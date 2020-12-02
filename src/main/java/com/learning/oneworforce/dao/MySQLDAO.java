@@ -44,7 +44,7 @@ public class MySQLDAO {
 		Connection connection=null;
 		List<Employee> employeedetails = new ArrayList<>();
 		//String selectquery="select top 1 SHIP_TO_COUNTRY from  LEGAL_DB.LEGAL_DFI_BR.BV_CMPL_PLT_SERIAL_NUMBER  where LOWER_BP_SERIAL_NUMBER=? and CARTON_ID=? and LOWER_ITEM_SERIAL_NUMBER=?";
-		String selectquery="select emp.*,dept.dept_name from employees emp,dept_emp demp,departments dept where emp.emp_no=demp.emp_no and demp.dept_no=dept.dept_no";
+		String selectquery="select emp.*,dept.dept_name from employees emp,dept_emp demp,departments dept where emp.emp_no=demp.emp_no and demp.dept_no=dept.dept_no LIMIT 50";
 	
 			try
 		{
@@ -252,7 +252,7 @@ public List<Employee> getmanagerEmployeeData(String emp_no){
 			 
 			 String dept_no =jdbcTemplate.queryForObject(dep_noquery,new Object[] {emp_no,to_date},String.class);
 			 System.out.println("dept_no"+dept_no);
-			 String selectquery="select emp.* from employees emp, dept_emp demp where emp.emp_no=demp.emp_no and demp.dept_no=?";
+			 String selectquery="select emp.* from employees emp, dept_emp demp where emp.emp_no=demp.emp_no and demp.dept_no=? LIMIT 50";
 
                  employeedetails=jdbcTemplate.query(
                 			selectquery,
@@ -605,6 +605,7 @@ public  List <Expense>getpendingExpense(String empno, String status)
 		                (rs, rowNum) ->	    			
 		                        new Expense(
 		                                rs.getString("expense_id"),
+		                                rs.getString("emp_no"),
 		                                rs.getString("expense_type"),
 		                                rs.getString("description"),
 		                                rs.getString("amount"),
