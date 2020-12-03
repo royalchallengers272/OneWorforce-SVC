@@ -10,6 +10,20 @@ public class Employee {
 	private String hire_date;
 	private String email;
 	private String managerflag;
+	private String fullname;
+	private String department;
+	public String getDepartment() {
+		return department;
+	}
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+	public String getFullname() {
+		return fullname;
+	}
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
 	public String getManagerflag() {
 		return managerflag;
 	}
@@ -111,7 +125,7 @@ public class Employee {
 		this.hire_date = hire_date;
 	}
 	
-	public Employee(String emp_no,String birth_date,String first_name,String last_name,String gender,String hire_date,String email,String password,String address1,String address2,String city,String state,String zip)
+	public Employee(String emp_no,String birth_date,String first_name,String last_name,String gender,String hire_date,String email,String password,String address1,String address2,String city,String state,String zip,String department,String fullname)
 	{
 		
 		this.emp_no=emp_no;
@@ -127,7 +141,8 @@ public class Employee {
 		this.city=city;
 		this.state=state;
 		this.zip=zip;
-
+		this.department=department;
+		this.fullname=fullname;
 		
 	}
 	public Employee()

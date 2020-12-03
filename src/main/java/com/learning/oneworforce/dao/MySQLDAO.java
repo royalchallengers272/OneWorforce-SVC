@@ -44,7 +44,7 @@ public class MySQLDAO {
 		Connection connection=null;
 		List<Employee> employeedetails = new ArrayList<>();
 		//String selectquery="select top 1 SHIP_TO_COUNTRY from  LEGAL_DB.LEGAL_DFI_BR.BV_CMPL_PLT_SERIAL_NUMBER  where LOWER_BP_SERIAL_NUMBER=? and CARTON_ID=? and LOWER_ITEM_SERIAL_NUMBER=?";
-		String selectquery="select emp.*,dept.dept_name from employees emp,dept_emp demp,departments dept where emp.emp_no=demp.emp_no and demp.dept_no=dept.dept_no LIMIT 50";
+		String selectquery="select emp.*,dept.dept_name,CONCAT(emp.first_name, ' ',emp.last_name) as fullname from employees emp,dept_emp demp,departments dept where emp.emp_no=demp.emp_no and demp.dept_no=dept.dept_no LIMIT 50";
 	
 			try
 		{
@@ -67,19 +67,21 @@ public class MySQLDAO {
 			    			selectquery,
 			                (rs, rowNum) ->
 			                        new Employee(
-			                                rs.getString("emp_no"),
-			                                rs.getString("birth_date"),
-			                                rs.getString("first_name"),
-			                                rs.getString("last_name"),
-			                                rs.getString("gender"),
-			                                rs.getString("hire_date"),
-			                                rs.getString("email"),
-			                                rs.getString("password"),
-			                                rs.getString("address1"),
-			                                rs.getString("address2"),
-			                                rs.getString("city"),
-			                                rs.getString("state"),
-			                                rs.getString("zip")
+			                                rs.getString("emp.emp_no"),
+			                                rs.getString("emp.birth_date"),
+			                                rs.getString("emp.first_name"),
+			                                rs.getString("emp.last_name"),
+			                                rs.getString("emp.gender"),
+			                                rs.getString("emp.hire_date"),
+			                                rs.getString("emp.email"),
+			                                rs.getString("emp.password"),
+			                                rs.getString("emp.address1"),
+			                                rs.getString("emp.address2"),
+			                                rs.getString("emp.city"),
+			                                rs.getString("emp.state"),
+			                                rs.getString("emp.zip"),
+			                                rs.getString("dept.dept_name"),
+			                                rs.getString("fullname")
 			                        ));
 			    	
 			
@@ -121,7 +123,7 @@ public List<Employee> getEmployeeData(String emp_no){
 		Connection connection=null;
 		List<Employee> employeedetails = new ArrayList<>();
 		//String selectquery="select top 1 SHIP_TO_COUNTRY from  LEGAL_DB.LEGAL_DFI_BR.BV_CMPL_PLT_SERIAL_NUMBER  where LOWER_BP_SERIAL_NUMBER=? and CARTON_ID=? and LOWER_ITEM_SERIAL_NUMBER=?";
-		 String selectquery="select emp.*,dept.dept_name from employees emp,dept_emp demp,departments dept where emp.emp_no=demp.emp_no and demp.dept_no=dept.dept_no and emp.emp_no="+emp_no;
+		 String selectquery="select emp.*,dept.dept_name,CONCAT(emp.first_name, ' ',emp.last_name) as fullname from employees emp,dept_emp demp,departments dept where emp.emp_no=demp.emp_no and demp.dept_no=dept.dept_no and emp.emp_no="+emp_no;
 		
 		  String to_date="9999-01-01";
 		  String countmanagerquery = "select count(*) from  dept_manager  where emp_no=? and to_date=?";
@@ -171,19 +173,21 @@ public List<Employee> getEmployeeData(String emp_no){
 			    			selectquery,
 			                (rs, rowNum) ->
 			                        new Employee(
-			                                rs.getString("emp_no"),
-			                                rs.getString("birth_date"),
-			                                rs.getString("first_name"),
-			                                rs.getString("last_name"),
-			                                rs.getString("gender"),
-			                                rs.getString("hire_date"),
-			                                rs.getString("email"),
-			                                rs.getString("password"),
-			                                rs.getString("address1"),
-			                                rs.getString("address2"),
-			                                rs.getString("city"),
-			                                rs.getString("state"),
-			                                rs.getString("zip")
+			                                rs.getString("emp.emp_no"),
+			                                rs.getString("emp.birth_date"),
+			                                rs.getString("emp.first_name"),
+			                                rs.getString("emp.last_name"),
+			                                rs.getString("emp.gender"),
+			                                rs.getString("emp.hire_date"),
+			                                rs.getString("emp.email"),
+			                                rs.getString("emp.password"),
+			                                rs.getString("emp.address1"),
+			                                rs.getString("emp.address2"),
+			                                rs.getString("emp.city"),
+			                                rs.getString("emp.state"),
+			                                rs.getString("emp.zip"),
+			                                rs.getString("dept.dept_name"),
+			                                rs.getString("fullname")
 			                        ));
 	                 
 	                 employeedetails.get(0).setManagername(managername);
@@ -252,26 +256,28 @@ public List<Employee> getmanagerEmployeeData(String emp_no){
 			 
 			 String dept_no =jdbcTemplate.queryForObject(dep_noquery,new Object[] {emp_no,to_date},String.class);
 			 System.out.println("dept_no"+dept_no);
-			 String selectquery="select emp.* from employees emp, dept_emp demp where emp.emp_no=demp.emp_no and demp.dept_no=? LIMIT 50";
+			 String selectquery="select emp.*,dept.dept_name,CONCAT(emp.first_name, ' ',emp.last_name) as fullname from employees emp, dept_emp demp where emp.emp_no=demp.emp_no and demp.dept_no=? LIMIT 50";
 
                  employeedetails=jdbcTemplate.query(
                 			selectquery,
   		    			  new Object[] { dept_no }, 
   		                (rs, rowNum) ->
 		                        new Employee(
-		                                rs.getString("emp_no"),
-		                                rs.getString("birth_date"),
-		                                rs.getString("first_name"),
-		                                rs.getString("last_name"),
-		                                rs.getString("gender"),
-		                                rs.getString("hire_date"),
-		                                rs.getString("email"),
-		                                rs.getString("password"),
-		                                rs.getString("address1"),
-		                                rs.getString("address2"),
-		                                rs.getString("city"),
-		                                rs.getString("state"),
-		                                rs.getString("zip")
+		                                rs.getString("emp.emp_no"),
+		                                rs.getString("emp.birth_date"),
+		                                rs.getString("emp.first_name"),
+		                                rs.getString("emp.last_name"),
+		                                rs.getString("emp.gender"),
+		                                rs.getString("emp.hire_date"),
+		                                rs.getString("emp.email"),
+		                                rs.getString("emp.password"),
+		                                rs.getString("emp.address1"),
+		                                rs.getString("emp.address2"),
+		                                rs.getString("emp.city"),
+		                                rs.getString("emp.state"),
+		                                rs.getString("emp.zip"),
+		                                rs.getString("dept.dept_name"),
+		                                rs.getString("fullname")
 		                        ));
 		    	
 		 }
