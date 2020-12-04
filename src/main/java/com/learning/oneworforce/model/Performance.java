@@ -13,6 +13,13 @@ public class Performance {
 	private String approval_date;
 	private String status;
 	private String approver_id;
+	private String empname;
+	public String getEmpname() {
+		return empname;
+	}
+	public void setEmpname(String empname) {
+		this.empname = empname;
+	}
 	public String getApprover_id() {
 		return approver_id;
 	}
@@ -95,7 +102,7 @@ public class Performance {
 	}
 
 	
-	public Performance(String performance_id,String emp_no,String year,String development_goals,String strengths,String accomplishments,String responsibilities,String created_date,String approval_date,String status,String approver_comments,String approver_id)
+	public Performance(String performance_id,String emp_no,String year,String development_goals,String strengths,String accomplishments,String responsibilities,String created_date,String approval_date,String status,String approver_comments,String approver_id,String empname)
 	{
 		this.performance_id=performance_id;
 		this.emp_no=emp_no;
@@ -109,5 +116,6 @@ public class Performance {
 		this.status=status;
 		this.approver_comments=approver_comments;
 		this.approver_id=approver_id;
+		this.empname=empname;
 	}
 }

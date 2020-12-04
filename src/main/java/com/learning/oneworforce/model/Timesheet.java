@@ -11,6 +11,13 @@ private String approver_id;
 private String approval_date;
 private String approver_comments;
 private String status;
+private String empname;
+public String getEmpname() {
+	return empname;
+}
+public void setEmpname(String empname) {
+	this.empname = empname;
+}
 public String getStatus() {
 	return status;
 }
@@ -78,7 +85,7 @@ public Timesheet()
 }
 
 
-public Timesheet(String timesheet_id,String emp_no,String timesheet_date,String timesheet_hours,String tasks,String created_date,String approver_id,String approval_date,String approver_comments,String status)
+public Timesheet(String timesheet_id,String emp_no,String timesheet_date,String timesheet_hours,String tasks,String created_date,String approver_id,String approval_date,String approver_comments,String status,String empname)
 {
 	this.timesheet_id=timesheet_id;
 	this.emp_no=emp_no;
@@ -90,6 +97,7 @@ public Timesheet(String timesheet_id,String emp_no,String timesheet_date,String 
 	this.approval_date=approval_date;
 	this.approver_comments=approver_comments;
 	this.status=status;
+	this.empname=empname;
 	}
 
 }

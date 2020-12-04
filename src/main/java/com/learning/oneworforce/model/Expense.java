@@ -4,6 +4,13 @@ public class Expense {
 
 	private String expense_id;
 	private String emp_no;
+	private String empname;
+	public String getEmpname() {
+		return empname;
+	}
+	public void setEmpname(String empname) {
+		this.empname = empname;
+	}
 	public String getEmp_no() {
 		return emp_no;
 	}
@@ -72,7 +79,7 @@ public class Expense {
 		
 	}
 	
-	public Expense(String expense_id,String emp_no,String expense_type,String description,String amount,String status,String approver_id,String created_date,String approve_date)
+	public Expense(String expense_id,String emp_no,String expense_type,String description,String amount,String status,String approver_id,String created_date,String approve_date,String empname)
 	{
 		this.expense_id=expense_id;
 		this.emp_no=emp_no;
@@ -83,6 +90,7 @@ public class Expense {
 		this.approver_id=approver_id;
 		this.created_date=created_date;
 		this.approve_date=approve_date;
+		this.empname=empname;
 	}
 	
 	}

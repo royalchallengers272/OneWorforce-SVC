@@ -14,6 +14,13 @@ private String reason;
 private int approver_id;
 private String created_date;
 private String approvercomments;
+private String empname;
+public String getEmpname() {
+	return empname;
+}
+public void setEmpname(String empname) {
+	this.empname = empname;
+}
 public String getApprovercomments() {
 	return approvercomments;
 }
@@ -83,7 +90,7 @@ public void setApprover_id(int approver_id) {
 	this.approver_id = approver_id;
 }
 
-public Leave(String leave_id,int emp_no,String created_date,String leave_type,String from_date,String to_date,String  approval_status,String reason,String approval_date,int approver_id)
+public Leave(String leave_id,int emp_no,String created_date,String leave_type,String from_date,String to_date,String  approval_status,String reason,String approval_date,int approver_id,String approvercomments,String empname)
 {
 	this.leave_id=leave_id;
 	this.emp_no=emp_no;
@@ -95,6 +102,8 @@ public Leave(String leave_id,int emp_no,String created_date,String leave_type,St
 	this.approver_id=approver_id;
 	this.created_date=created_date;
 	this.approval_date=approval_date;
+	this.approvercomments=approvercomments;
+	this.empname=empname;
 }
 
 public Leave()

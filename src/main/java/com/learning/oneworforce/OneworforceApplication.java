@@ -9,7 +9,6 @@ import com.learning.oneworforce.controller.LoginController;
 
 
 
-
 @SpringBootApplication
 public class OneworforceApplication  {
 	public static void main(String[] args) {

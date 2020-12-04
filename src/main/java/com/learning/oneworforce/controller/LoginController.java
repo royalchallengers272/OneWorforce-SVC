@@ -110,6 +110,56 @@ public ResponseEntity<List<Employee>> getmanagerEmployeeDetails(@RequestParam St
 
 
 @CrossOrigin(origins = {"http://localhost:4200", "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com"})
+@GetMapping("/api/getEmployeeSearch")
+public ResponseEntity<List<Employee>> getEmployeesearch(@RequestParam String first_name,@RequestParam String last_name,String emp_no,String email,String phone,String department) {
+	
+  try {
+	  
+	  if(first_name ==null|| first_name.length()==0)
+	  {
+		  first_name="";
+	  }
+	 
+	  
+	  
+	  if(last_name ==null|| last_name.length()==0)
+	  {
+		  last_name="";
+	  }
+	  
+	  if(emp_no ==null|| emp_no.length()==0)
+	  {
+		  emp_no="";
+	  }
+	  
+	  if(email ==null|| email.length()==0)
+	  {
+		  email="";
+	  }
+	  
+	  if(phone ==null|| phone.length()==0)
+	  {
+		  phone="";
+	  }
+	  
+	  if(department ==null|| department.length()==0)
+	  {
+		  department="";
+	  }
+	List<Employee> employee = mysqldao.getSearchEmployeeData(first_name,last_name,emp_no,email,phone,department);
+
+    if (employee.isEmpty()) {
+      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+	  System.out.println("Total Employee Count"+employee.size());
+    return new ResponseEntity<>(employee, HttpStatus.OK);
+		}
+   catch (Exception e) {
+    return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+  }
+}
+
+@CrossOrigin(origins = {"http://localhost:4200", "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com"})
 @PostMapping("/api/updateDirectory")
 public ResponseEntity<String> updateEmployee(@RequestBody Employee employee) {
   try {
@@ -118,11 +168,12 @@ public ResponseEntity<String> updateEmployee(@RequestBody Employee employee) {
 
 	 if(result==1)
 	 {
-	 return new ResponseEntity<>("Success", HttpStatus.OK);
+		 return new ResponseEntity<>("Success", HttpStatus.OK);
 	 }
 	 else
 	 {
 		 return new ResponseEntity<>("Fail", HttpStatus.OK);
+		
 	 }
 		}
    catch (Exception e) {
@@ -267,6 +318,22 @@ public ResponseEntity<List<Expense>> getpendingexpense(@RequestParam String emp_
   }
 }
 
+@CrossOrigin(origins = {"http://localhost:4200", "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com"})
+@GetMapping("/api/getAllexpense")
+public ResponseEntity<List<Expense>> getAllExpense(@RequestParam String emp_no) {
+  try {
+	  System.out.println("Fetch Expenses for"+emp_no);
+	  List<Expense> expense=mysqldao.getAllExpense(emp_no,"Pending");
+	
+	 return new ResponseEntity<>(expense, HttpStatus.OK);
+	 
+
+		}
+   catch (Exception e) {
+	   return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+  }
+}
+
 
 
 @CrossOrigin(origins = {"http://localhost:4200", "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com"})
@@ -297,6 +364,23 @@ public ResponseEntity<List<Performance>> getpendingPerformance(@RequestParam Str
   try {
 	  System.out.println("Fetch performance for"+emp_no);
 	  List<Performance> performance=mysqldao.getpendingPerformance(emp_no,"Pending");
+	
+	 return new ResponseEntity<>(performance, HttpStatus.OK);
+	 
+
+		}
+   catch (Exception e) {
+	   return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+  }
+}
+
+
+@CrossOrigin(origins = {"http://localhost:4200", "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com"})
+@GetMapping("/api/getlastyearperformance")
+public ResponseEntity<List<Performance>> getLastYearPerformance(@RequestParam String emp_no) {
+  try {
+	  System.out.println("Fetch performance for"+emp_no);
+	  List<Performance> performance=mysqldao.getlastyearPerformance(emp_no, "Pending");
 	
 	 return new ResponseEntity<>(performance, HttpStatus.OK);
 	 
@@ -378,8 +462,25 @@ public ResponseEntity<String> updateTimesheet(@RequestBody Timesheet timesheet) 
 @GetMapping("/api/getPendingtimesheet")
 public ResponseEntity<List<Timesheet>> getpendingTimesheet(@RequestParam String emp_no) {
   try {
-	  System.out.println("Fetch performance for"+emp_no);
+	  System.out.println("Fetch getPendingtimesheet for"+emp_no);
 	  List<Timesheet> timesheet=mysqldao.getpendingTimesheet(emp_no, "Pending");
+	
+	 return new ResponseEntity<>(timesheet, HttpStatus.OK);
+	 
+
+		}
+   catch (Exception e) {
+	   return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+  }
+}
+
+
+@CrossOrigin(origins = {"http://localhost:4200", "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com"})
+@GetMapping("/api/getAlltimesheet")
+public ResponseEntity<List<Timesheet>> getalltimesheet(@RequestParam String emp_no) {
+  try {
+	  System.out.println("Fetch getAlltimesheet for"+emp_no);
+	  List<Timesheet> timesheet=mysqldao.getAllTimesheet(emp_no, "Pending");
 	
 	 return new ResponseEntity<>(timesheet, HttpStatus.OK);
 	 

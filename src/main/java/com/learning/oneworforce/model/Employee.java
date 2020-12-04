@@ -12,6 +12,27 @@ public class Employee {
 	private String managerflag;
 	private String fullname;
 	private String department;
+	private String theatre;
+	private String phone;
+	private String hrflag;
+	public String getHrflag() {
+		return hrflag;
+	}
+	public void setHrflag(String hrflag) {
+		this.hrflag = hrflag;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getTheatre() {
+		return theatre;
+	}
+	public void setTheatre(String theatre) {
+		this.theatre = theatre;
+	}
 	public String getDepartment() {
 		return department;
 	}
@@ -125,7 +146,7 @@ public class Employee {
 		this.hire_date = hire_date;
 	}
 	
-	public Employee(String emp_no,String birth_date,String first_name,String last_name,String gender,String hire_date,String email,String password,String address1,String address2,String city,String state,String zip,String department,String fullname)
+	public Employee(String emp_no,String birth_date,String first_name,String last_name,String gender,String hire_date,String email,String password,String address1,String address2,String city,String state,String zip,String department,String fullname,String theatre,String phone,String managername)
 	{
 		
 		this.emp_no=emp_no;
@@ -143,6 +164,9 @@ public class Employee {
 		this.zip=zip;
 		this.department=department;
 		this.fullname=fullname;
+		this.theatre=theatre;
+		this.phone=phone;
+		this.managername=managername;
 		
 	}
 	public Employee()
