@@ -44,7 +44,7 @@ public List<Employee> getSearchEmployeeData(String first_name,String last_name, 
 		Connection connection=null;
 		List<Employee> employeedetails = new ArrayList<>();
 		//String selectquery="select top 1 SHIP_TO_COUNTRY from  LEGAL_DB.LEGAL_DFI_BR.BV_CMPL_PLT_SERIAL_NUMBER  where LOWER_BP_SERIAL_NUMBER=? and CARTON_ID=? and LOWER_ITEM_SERIAL_NUMBER=?";
-		String selectquery="select emp.*,dept.dept_name,CONCAT(emp.first_name, ' ',emp.last_name) as fullname,(select CONCAT(first_name, ' ',last_name) from employees where emp_no=emp.manager_id) as managername from employees emp,dept_emp demp,departments dept where emp.emp_no=demp.emp_no and demp.dept_no=dept.dept_no and (emp.first_name=? or emp.last_name=? or emp.emp_no=? or emp.email=? or dept.dept_name=?) LIMIT 1000";
+		String selectquery="select emp.*,dept.dept_name,CONCAT(emp.first_name, ' ',emp.last_name) as fullname,(select CONCAT(first_name, ' ',last_name) from employees where emp_no=emp.manager_id) as managername from employees emp,dept_emp demp,departments dept where emp.emp_no=demp.emp_no and demp.dept_no=dept.dept_no and (emp.first_name=? or emp.last_name=? or emp.emp_no=? or emp.email=? or dept.dept_name=?)";
 	
 			try
 		{
@@ -128,7 +128,7 @@ public List<Employee> getSearchEmployeeData(String first_name,String last_name, 
 		Connection connection=null;
 		List<Employee> employeedetails = new ArrayList<>();
 		//String selectquery="select top 1 SHIP_TO_COUNTRY from  LEGAL_DB.LEGAL_DFI_BR.BV_CMPL_PLT_SERIAL_NUMBER  where LOWER_BP_SERIAL_NUMBER=? and CARTON_ID=? and LOWER_ITEM_SERIAL_NUMBER=?";
-		String selectquery="select emp.*,dept.dept_name,CONCAT(emp.first_name, ' ',emp.last_name) as fullname,(select CONCAT(first_name, ' ',last_name) from employees where emp_no=emp.manager_id) as managername from employees emp,dept_emp demp,departments dept where emp.emp_no=demp.emp_no and demp.dept_no=dept.dept_no LIMIT 1000";
+		String selectquery="select emp.*,dept.dept_name,CONCAT(emp.first_name, ' ',emp.last_name) as fullname,(select CONCAT(first_name, ' ',last_name) from employees where emp_no=emp.manager_id) as managername from employees emp,dept_emp demp,departments dept where emp.emp_no=demp.emp_no and demp.dept_no=dept.dept_no";
 	
 			try
 		{
@@ -361,7 +361,7 @@ public List<Employee> getmanagerEmployeeData(String emp_no){
 			 
 			 String dept_no =jdbcTemplate.queryForObject(dep_noquery,new Object[] {emp_no,to_date},String.class);
 			 System.out.println("dept_no"+dept_no);
-			 String selectquery="select emp.*,dept.dept_name,CONCAT(emp.first_name, ' ',emp.last_name) as fullname,(select CONCAT(first_name, ' ',last_name) from employees where emp_no=emp.manager_id) as managername from employees emp, dept_emp demp,departments dept where demp.dept_no=dept.dept_no and emp.emp_no=demp.emp_no and demp.dept_no=? LIMIT 1000";
+			 String selectquery="select emp.*,dept.dept_name,CONCAT(emp.first_name, ' ',emp.last_name) as fullname,(select CONCAT(first_name, ' ',last_name) from employees where emp_no=emp.manager_id) as managername from employees emp, dept_emp demp,departments dept where demp.dept_no=dept.dept_no and emp.emp_no=demp.emp_no and demp.dept_no=?";
 
                  employeedetails=jdbcTemplate.query(
                 			selectquery,
