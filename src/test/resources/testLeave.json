@@ -1,0 +1,13 @@
+{
+	"leave_id": "1",
+	"leave_type": "EL",
+	"emp_no": 10005,
+	"from_date": "2020-12-03",
+	"to_date": "2020-12-04",
+	"approval_status": "Approved",
+	"reason": "Personal updated",
+	"approver_id": 0,
+	"created_date": "2020-12-02",
+	"approvercomments": null,
+	"approval_date": null
+}

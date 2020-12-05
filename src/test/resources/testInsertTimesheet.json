@@ -1,0 +1,11 @@
+{
+	"emp_no": "10001",
+	"timesheet_date": "11/12/2020",
+	"timesheet_hours": "9",
+	"tasks": "Unit Testing",
+	"created_date": "04/12/2020",
+	"approver_id": null,
+	"approval_date": null,
+	"approver_comments": null,
+	"status": "Pending"
+}

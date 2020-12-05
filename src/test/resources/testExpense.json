@@ -1,0 +1,11 @@
+{
+	"expense_id": "2",
+	"emp_no": "10005",
+	"expense_type": "Travel",
+	"description": "Flight charges",
+	"amount": "1000",
+	"status": "Pending",
+	"approver_id": null,
+	"created_date": "2020-12-02",
+	"approve_date": null
+}

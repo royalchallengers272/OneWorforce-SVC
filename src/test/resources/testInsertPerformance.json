@@ -1,0 +1,13 @@
+{
+	"emp_no": "10002",
+	"year": "2020",
+	"development_goals": "Development Goals Input",
+	"strengths": "Strengths Input",
+	"accomplishments": "Accomlishments Input",
+	"responsibilities": "Responsibilities Input",
+	"created_date": "2020-12-03",
+	"approval_date": null,
+	"status": "Pending",
+	"approver_id": null,
+	"approver_comments": null
+}

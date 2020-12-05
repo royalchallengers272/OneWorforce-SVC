@@ -1,0 +1,19 @@
+{
+	"emp_no": "10002",
+	"birth_date": "1964-06-02",
+	"first_name": "Aarti",
+	"last_name": "Aandhe",
+	"gender": "F",
+	"hire_date": "1985-11-21",
+	"email": "aarti@test.com",
+	"managerflag": "N",
+	"fullname": "Aarti Aandhe",
+	"department": "Human Resources",
+	"managername": "Adamantios Portugali",
+	"password": "passupdated",
+	"address1": "No 24",
+	"address2": "second street road",
+	"city": "San Jose",
+	"state": "California",
+	"zip": "94085"
+}

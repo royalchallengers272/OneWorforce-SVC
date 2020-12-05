@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
 import com.learning.oneworforce.dao.MySQLDAO;
 import com.learning.oneworforce.model.Employee;
 import com.learning.oneworforce.model.Expense;
@@ -31,6 +34,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RestControllerAdvice
+@Tag(name = "API Documentation", description = "APIs for employees, leaves, performance, expense and timesheet")
+
 public class LoginController {
 
 	@Autowired
