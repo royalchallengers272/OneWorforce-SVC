@@ -48,7 +48,7 @@ public class LoginController {
     
     }
     
-@CrossOrigin(origins = {"http://localhost:4200", "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com"})
+@CrossOrigin(origins = {"http://localhost:4200","http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com","https://dema01w2nk1xa.cloudfront.net"})
 @GetMapping("/api/getEmployeeDetails")
 public ResponseEntity<List<Employee>> getEmployeeDetails(@RequestParam String empid) {
   try {
@@ -71,7 +71,7 @@ public ResponseEntity<List<Employee>> getEmployeeDetails(@RequestParam String em
   }
 }
 
-@CrossOrigin(origins = {"http://localhost:4200", "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com"})
+@CrossOrigin(origins = {"http://localhost:4200","http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com","https://dema01w2nk1xa.cloudfront.net"})
 @GetMapping("/api/getAllEmployeeDetails")
 public ResponseEntity<List<Employee>> getEmployeeDetails() {
   try {
@@ -90,7 +90,7 @@ public ResponseEntity<List<Employee>> getEmployeeDetails() {
 }
 
 
-@CrossOrigin(origins = {"http://localhost:4200", "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com"})
+@CrossOrigin(origins = {"http://localhost:4200","http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com","https://dema01w2nk1xa.cloudfront.net"})
 @GetMapping("/api/getManagerEmployeeDetails")
 public ResponseEntity<List<Employee>> getmanagerEmployeeDetails(@RequestParam String empid) {
   try {
@@ -109,7 +109,7 @@ public ResponseEntity<List<Employee>> getmanagerEmployeeDetails(@RequestParam St
 }
 
 
-@CrossOrigin(origins = {"http://localhost:4200", "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com"})
+@CrossOrigin(origins = {"http://localhost:4200","http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com","https://dema01w2nk1xa.cloudfront.net"})
 @GetMapping("/api/getEmployeeSearch")
 public ResponseEntity<List<Employee>> getEmployeesearch(@RequestParam String first_name,@RequestParam String last_name,String emp_no,String email,String phone,String department) {
 	
@@ -159,7 +159,7 @@ public ResponseEntity<List<Employee>> getEmployeesearch(@RequestParam String fir
   }
 }
 
-@CrossOrigin(origins = {"http://localhost:4200", "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com"})
+@CrossOrigin(origins = {"http://localhost:4200","http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com","https://dema01w2nk1xa.cloudfront.net"})
 @PostMapping("/api/updateDirectory")
 public ResponseEntity<String> updateEmployee(@RequestBody Employee employee) {
   try {
@@ -181,7 +181,7 @@ public ResponseEntity<String> updateEmployee(@RequestBody Employee employee) {
   }
 }
 
-@CrossOrigin(origins = {"http://localhost:4200", "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com"})
+@CrossOrigin(origins = {"http://localhost:4200","http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com","https://dema01w2nk1xa.cloudfront.net"})
 @PostMapping("/api/updateleave")
 public ResponseEntity<String> updateLeaveDetails(@RequestBody Leave leaveobj) {
   try {
@@ -203,7 +203,7 @@ public ResponseEntity<String> updateLeaveDetails(@RequestBody Leave leaveobj) {
 }
 
 
-@CrossOrigin(origins = {"http://localhost:4200", "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com"})
+@CrossOrigin(origins = {"http://localhost:4200","http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com","https://dema01w2nk1xa.cloudfront.net"})
 @PostMapping("/api/submitleave")
 public ResponseEntity<String> insertLeaveDetails(@RequestBody Leave leaveobj) {
   try {
@@ -225,7 +225,7 @@ public ResponseEntity<String> insertLeaveDetails(@RequestBody Leave leaveobj) {
 }
 
 
-@CrossOrigin(origins = {"http://localhost:4200", "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com"})
+@CrossOrigin(origins = {"http://localhost:4200","http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com","https://dema01w2nk1xa.cloudfront.net"})
 @GetMapping("/api/getPendingleaves")
 public ResponseEntity<List<Leave>> getLeaveDetails(@RequestParam String emp_no) {
   try {
@@ -241,7 +241,7 @@ public ResponseEntity<List<Leave>> getLeaveDetails(@RequestParam String emp_no) 
   }
 }
 
-@CrossOrigin(origins = {"http://localhost:4200", "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com"})
+@CrossOrigin(origins = {"http://localhost:4200","http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com","https://dema01w2nk1xa.cloudfront.net"})
 @GetMapping("/api/getleavedetails")
 public ResponseEntity<List<Leave>> getAllLeaveDetails(@RequestParam String emp_no) {
   try {
@@ -257,7 +257,7 @@ public ResponseEntity<List<Leave>> getAllLeaveDetails(@RequestParam String emp_n
   }
 }
 
-@CrossOrigin(origins = {"http://localhost:4200", "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com"})
+@CrossOrigin(origins = {"http://localhost:4200","http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com","https://dema01w2nk1xa.cloudfront.net"})
 @PostMapping("/api/submitexpense")
 public ResponseEntity<String> insertExpenseDetails(@RequestBody Expense expense) {
   try {
@@ -279,7 +279,7 @@ public ResponseEntity<String> insertExpenseDetails(@RequestBody Expense expense)
 }
 
 
-@CrossOrigin(origins = {"http://localhost:4200", "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com"})
+@CrossOrigin(origins = {"http://localhost:4200","http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com","https://dema01w2nk1xa.cloudfront.net"})
 @PostMapping("/api/updateexpense")
 public ResponseEntity<String> updateExpenseDetails(@RequestBody Expense expenseobj) {
   try {
@@ -302,7 +302,7 @@ public ResponseEntity<String> updateExpenseDetails(@RequestBody Expense expenseo
 
 
 
-@CrossOrigin(origins = {"http://localhost:4200", "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com"})
+@CrossOrigin(origins = {"http://localhost:4200","http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com","https://dema01w2nk1xa.cloudfront.net"})
 @GetMapping("/api/getPendingexpense")
 public ResponseEntity<List<Expense>> getpendingexpense(@RequestParam String emp_no) {
   try {
@@ -318,7 +318,7 @@ public ResponseEntity<List<Expense>> getpendingexpense(@RequestParam String emp_
   }
 }
 
-@CrossOrigin(origins = {"http://localhost:4200", "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com"})
+@CrossOrigin(origins = {"http://localhost:4200","http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com","https://dema01w2nk1xa.cloudfront.net"})
 @GetMapping("/api/getAllexpense")
 public ResponseEntity<List<Expense>> getAllExpense(@RequestParam String emp_no) {
   try {
@@ -336,7 +336,7 @@ public ResponseEntity<List<Expense>> getAllExpense(@RequestParam String emp_no) 
 
 
 
-@CrossOrigin(origins = {"http://localhost:4200", "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com"})
+@CrossOrigin(origins = {"http://localhost:4200","http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com","https://dema01w2nk1xa.cloudfront.net"})
 @PostMapping("/api/submitperformance")
 public ResponseEntity<String> insertPerformanceDetails(@RequestBody Performance performance) {
   try {
@@ -358,7 +358,7 @@ public ResponseEntity<String> insertPerformanceDetails(@RequestBody Performance 
 }
 
 
-@CrossOrigin(origins = {"http://localhost:4200", "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com"})
+@CrossOrigin(origins = {"http://localhost:4200","http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com","https://dema01w2nk1xa.cloudfront.net"})
 @GetMapping("/api/getPendingperformance")
 public ResponseEntity<List<Performance>> getpendingPerformance(@RequestParam String emp_no) {
   try {
@@ -375,7 +375,7 @@ public ResponseEntity<List<Performance>> getpendingPerformance(@RequestParam Str
 }
 
 
-@CrossOrigin(origins = {"http://localhost:4200", "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com"})
+@CrossOrigin(origins = {"http://localhost:4200","http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com","https://dema01w2nk1xa.cloudfront.net"})
 @GetMapping("/api/getlastyearperformance")
 public ResponseEntity<List<Performance>> getLastYearPerformance(@RequestParam String emp_no) {
   try {
@@ -392,7 +392,7 @@ public ResponseEntity<List<Performance>> getLastYearPerformance(@RequestParam St
 }
 
 
-@CrossOrigin(origins = {"http://localhost:4200", "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com"})
+@CrossOrigin(origins = {"http://localhost:4200","http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com","https://dema01w2nk1xa.cloudfront.net"})
 @PostMapping("/api/updateperformance")
 public ResponseEntity<String> updatePerformaceDetails(@RequestBody Performance performance) {
   try {
@@ -413,7 +413,7 @@ public ResponseEntity<String> updatePerformaceDetails(@RequestBody Performance p
   }
 }
 
-@CrossOrigin(origins = {"http://localhost:4200", "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com"})
+@CrossOrigin(origins = {"http://localhost:4200","http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com","https://dema01w2nk1xa.cloudfront.net"})
 @PostMapping("/api/submitTimesheet")
 public ResponseEntity<String> insertPerformanceDetails(@RequestBody Timesheet timesheet) {
   try {
@@ -435,7 +435,7 @@ public ResponseEntity<String> insertPerformanceDetails(@RequestBody Timesheet ti
 }
 
 
-@CrossOrigin(origins = {"http://localhost:4200", "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com"})
+@CrossOrigin(origins = {"http://localhost:4200","http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com","https://dema01w2nk1xa.cloudfront.net"})
 @PostMapping("/api/updatetimesheet")
 public ResponseEntity<String> updateTimesheet(@RequestBody Timesheet timesheet) {
   try {
@@ -458,7 +458,7 @@ public ResponseEntity<String> updateTimesheet(@RequestBody Timesheet timesheet) 
 
 
 
-@CrossOrigin(origins = {"http://localhost:4200", "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com"})
+@CrossOrigin(origins = {"http://localhost:4200","http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com","https://dema01w2nk1xa.cloudfront.net"})
 @GetMapping("/api/getPendingtimesheet")
 public ResponseEntity<List<Timesheet>> getpendingTimesheet(@RequestParam String emp_no) {
   try {
@@ -475,7 +475,7 @@ public ResponseEntity<List<Timesheet>> getpendingTimesheet(@RequestParam String 
 }
 
 
-@CrossOrigin(origins = {"http://localhost:4200", "http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com"})
+@CrossOrigin(origins = {"http://localhost:4200","http://oneworkforcesiteaws.s3-website-us-west-1.amazonaws.com","https://dema01w2nk1xa.cloudfront.net"})
 @GetMapping("/api/getAlltimesheet")
 public ResponseEntity<List<Timesheet>> getalltimesheet(@RequestParam String emp_no) {
   try {
